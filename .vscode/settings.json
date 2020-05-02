@@ -1,0 +1,53 @@
+// Place your settings in this file to overwrite the default settings
+{
+  "breadcrumbs.enabled": true,
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.detectIndentation": false,
+  "editor.fontFamily": "'Source Code Pro', Menlo, Consolas, Courier, monospace",
+  "editor.fontSize": 12,
+  "editor.formatOnSave": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+  },
+  "editor.renderWhitespace": "none",
+  "editor.snippetSuggestions": "top",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "indent",
+  "emmet.preferences": {
+    "format.forceIndentationForTags": "address,article,aside,audio,blockquote,body,canvas,div,dl,fieldset,figcaption,figure,footer,form,head,header,iframe,main,map,nav,object,ol,p,pre,section,style,table,tbody,td,tfoot,th,thead,tr,ul,video"
+  },
+  "extensions.ignoreRecommendations": true,
+  "extensions.showRecommendationsOnlyOnDemand": true,
+  "files.exclude": {
+    "**/._*": true
+  },
+  "files.insertFinalNewline": true,
+  // Remove the following to enable Git
+  "git.enabled": true,
+  "html.format.endWithNewline": true,
+  "html.format.extraLiners": "body",
+  "html.format.indentInnerHtml": true,
+  "html.format.unformatted": "b,em,i,span,strong,wbr",
+  "html.format.wrapLineLength": 0,
+  "liveSassCompile.settings.autoprefix": null,
+  "liveSassCompile.settings.generateMap": false,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.port": 0,
+  "path-autocomplete.excludedItems": {
+    "**/{.DS_Store,.git,.gitignore,node_modules}": {
+      "when": "**"
+    }
+  },
+  "path-autocomplete.extensionOnImport": true,
+  "window.zoomLevel": 0.75,
+  "workbench.colorCustomizations": {
+    "editorIndentGuide.activeBackground": "#FFA500"
+  },
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false
+}
