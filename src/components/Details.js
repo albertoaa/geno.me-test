@@ -10,27 +10,25 @@ const Details = () => {
   const [isLoadind, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!data) {
-      fetch(
-        `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_APP_KEY}&id=${id}&image_type=photo&pretty=true`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data.hits[0]);
+    fetch(
+      `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_APP_KEY}&id=${id}&image_type=photo&pretty=true`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.hits[0]);
 
-          fetch(
-            `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_APP_KEY}&order=popular&image_type=photo&pretty=true`
-          )
-            .then((res) => res.json())
-            .then((data) => {
-              setImages(data.hits);
-              setIsLoading(false);
-            })
-            .catch((err) => console.log(err));
-        })
-        .catch((err) => console.log(err));
-    }
-  });
+        fetch(
+          `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_APP_KEY}&order=popular&image_type=photo&pretty=true`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            setImages(data.hits);
+            setIsLoading(false);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
 
   return (
     <div className='container mx-auto'>
@@ -46,7 +44,11 @@ const Details = () => {
               <Link to='/'>{'<  ' + data.user}</Link>
             </div>
 
-            <img src={data.webformatURL} alt='' className='w-full' />
+            <div class="flex flex-wrap justify-center">
+              <div>
+                <img src={data.webformatURL} alt="..." class="shadow rounded max-w-full h-auto align-middle border-none" />
+              </div>
+            </div>
 
             <div className='m-10'>
               <Carousel
