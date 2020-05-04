@@ -1,51 +1,51 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import ImageCard from './ImageCard';
 import ImageSearch from './ImageSearch';
 import { Link } from 'react-router-dom';
 
+import allActions from '../state/actions';
+
 const Home = () => {
-  const [images, setImages] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
+  // const [images, setImages] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [loadingMore, setLoadingMore] = useState(false);
   const apiURL = process.env.REACT_APP_API_URL;
   const apiKey = process.env.REACT_APP_GIPHY_APP_KEY;
 
+  const images = useSelector((state) => state.images.trending);
+  const loading = useSelector((state) => state.loading);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetch(`${apiURL}/trending?api_key=${apiKey}&offset=0`)
-      .then((res) => res.json())
-      .then((json) => {
-        setImages(json.data);
-        setIsLoading(false);
-        // console.log(json);
-      })
-      .catch((err) => console.log(err));
-  }, [apiKey, apiURL]);
+    dispatch(allActions.imagesActions.fetchImages());
+  }, [dispatch]);
 
   const loadMore = () => {
-    setLoadingMore(true);
-    fetch(`${apiURL}/trending?api_key=${apiKey}&offset=${images.length}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setImages([...images, ...json.data]);
-        setIsLoading(false);
-        setLoadingMore(false);
-      })
-      .catch((err) => console.log(err));
+    // setLoadingMore(true);
+    // fetch(`${apiURL}/trending?api_key=${apiKey}&offset=${images.length}`)
+    //   .then((res) => res.json())
+    //   .then((json) => {
+    //     setImages([...images, ...json.data]);
+    //     setIsLoading(false);
+    //     setLoadingMore(false);
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   const searchText = (text) => {
-    fetch(
-      text.length === 0
-        ? `${apiURL}/trending?api_key=${apiKey}`
-        : `${apiURL}/search?api_key=${apiKey}&q=${text}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        setImages(json.data);
-        setIsLoading(false);
-        setLoadingMore(false);
-      })
-      .catch((err) => console.log(err));
+    // fetch(
+    //   text.length === 0
+    //     ? `${apiURL}/trending?api_key=${apiKey}`
+    //     : `${apiURL}/search?api_key=${apiKey}&q=${text}`
+    // )
+    //   .then((res) => res.json())
+    //   .then((json) => {
+    //     setImages(json.data);
+    //     setIsLoading(false);
+    //     setLoadingMore(false);
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   return (
@@ -57,10 +57,10 @@ const Home = () => {
       </div>
       <ImageSearch searchText={searchText} />
 
-      {!isLoading && images.length === 0 && (
+      {!loading && images.length === 0 && (
         <h1 className='text-6xl text-center mx-auto mt-32'>No images found</h1>
       )}
-      {isLoading ? (
+      {loading ? (
         <h1 className='text-6xl text-center mx-auto mt-32'>Loading...</h1>
       ) : (
         <div className='grid grid-cols-3 gap-4 mx-20 text-center'>
@@ -71,7 +71,7 @@ const Home = () => {
           ))}
         </div>
       )}
-      {loadingMore ? (
+      {/* {loadingMore ? (
         <h1 className='text-6xl text-center mx-auto mt-32'>Loading More...</h1>
       ) : !isLoading ? (
         <div className='max-w-sm rounder text-center overflow-hidden my-10 mx-auto'>
@@ -82,7 +82,7 @@ const Home = () => {
             Load More
           </button>
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };
