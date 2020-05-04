@@ -6,7 +6,7 @@ const ImageCard = ({ image }) => {
       <img
         src={`https://media.giphy.com/media/${image.id}/giphy.gif`}
         alt=''
-        className='w-full'
+        className='w-full h-full'
       />
       <div className='absolute bottom-0 right-0 text-right px-2 font-bold text-xl bg-gray-800 text-white'>
         {image.title}

@@ -5,10 +5,14 @@ export const FETCH_IMAGES_BEGIN = 'FETCH_IMAGES_BEGIN';
 export const FETCH_IMAGES_SUCCESS = 'FETCH_IMAGES_SUCCESS';
 export const FETCH_IMAGES_FAILURE = 'FETCH_IMAGES_FAILURE';
 
-export function fetchImages() {
+export function fetchImages(offset = 0, text) {
+  const query =
+    text.length === 0
+      ? `${apiURL}/trending?api_key=${apiKey}&offset=${offset}`
+      : `${apiURL}/search?api_key=${apiKey}&q=${text}`;
   return (dispatch) => {
     dispatch(fetchImagesBegin());
-    return fetch(`${apiURL}/trending?api_key=${apiKey}&offset=0`)
+    return fetch(`${query}`)
       .then(handleErrors)
       .then((res) => res.json())
       .then((json) => {

@@ -7,45 +7,21 @@ import { Link } from 'react-router-dom';
 import allActions from '../state/actions';
 
 const Home = () => {
-  // const [images, setImages] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [loadingMore, setLoadingMore] = useState(false);
-  const apiURL = process.env.REACT_APP_API_URL;
-  const apiKey = process.env.REACT_APP_GIPHY_APP_KEY;
-
   const images = useSelector((state) => state.images.trending);
-  const loading = useSelector((state) => state.loading);
+  const loading = useSelector((state) => state.images.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(allActions.imagesActions.fetchImages());
+    dispatch(allActions.imagesActions.fetchImages(0, ''));
   }, [dispatch]);
 
   const loadMore = () => {
-    // setLoadingMore(true);
-    // fetch(`${apiURL}/trending?api_key=${apiKey}&offset=${images.length}`)
-    //   .then((res) => res.json())
-    //   .then((json) => {
-    //     setImages([...images, ...json.data]);
-    //     setIsLoading(false);
-    //     setLoadingMore(false);
-    //   })
-    //   .catch((err) => console.log(err));
+    const offset = images.length;
+    dispatch(allActions.imagesActions.fetchImages(offset, ''));
   };
 
   const searchText = (text) => {
-    // fetch(
-    //   text.length === 0
-    //     ? `${apiURL}/trending?api_key=${apiKey}`
-    //     : `${apiURL}/search?api_key=${apiKey}&q=${text}`
-    // )
-    //   .then((res) => res.json())
-    //   .then((json) => {
-    //     setImages(json.data);
-    //     setIsLoading(false);
-    //     setLoadingMore(false);
-    //   })
-    //   .catch((err) => console.log(err));
+    dispatch(allActions.imagesActions.fetchImages(0, text));
   };
 
   return (
@@ -71,9 +47,7 @@ const Home = () => {
           ))}
         </div>
       )}
-      {/* {loadingMore ? (
-        <h1 className='text-6xl text-center mx-auto mt-32'>Loading More...</h1>
-      ) : !isLoading ? (
+      {/* {!loading ? (
         <div className='max-w-sm rounder text-center overflow-hidden my-10 mx-auto'>
           <button
             className='bg-green-500 hover:bg-green-700 text-white font-bold py-4 px-8 rounded'
