@@ -8,27 +8,27 @@ const Details = () => {
   const [data, setData] = useState();
   const [images, setImages] = useState([]);
   const [isLoadind, setIsLoading] = useState(true);
+  const apiURL = process.env.REACT_APP_API_URL;
+  const apiKey = process.env.REACT_APP_GIPHY_APP_KEY;
 
   useEffect(() => {
-    fetch(
-      `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_APP_KEY}&id=${id}&image_type=photo&pretty=true`
-    )
+    let image = {};
+    fetch(`${apiURL}/${id}?api_key=${apiKey}`)
       .then((res) => res.json())
-      .then((data) => {
-        setData(data.hits[0]);
-
-        fetch(
-          `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_APP_KEY}&order=popular&image_type=photo&pretty=true`
-        )
+      .then((json) => {
+        image = json.data;
+        setData(image);
+        fetch(`${apiURL}/trending?api_key=${apiKey}`)
           .then((res) => res.json())
-          .then((data) => {
-            setImages(data.hits);
+          .then((json) => {
+            console.log(json);
+            setImages(json.data.filter((el) => el.id !== image.id));
             setIsLoading(false);
           })
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [id, apiKey, apiURL]);
 
   return (
     <div className='container mx-auto'>
@@ -40,15 +40,15 @@ const Details = () => {
       ) : (
         <div className=''>
           <div className='mt-5 mb-5'>
-            <Link to='/'>{'<  ' + data.user}</Link>
+            <Link to='/'>{'<  ' + data.title}</Link>
           </div>
 
-          <div class='flex flex-wrap justify-center'>
+          <div className='flex flex-wrap justify-center'>
             <div>
               <img
-                src={data.webformatURL}
+                src={`https://media.giphy.com/media/${data.id}/giphy.gif`}
                 alt='...'
-                class='shadow rounded max-w-full h-auto align-middle border-none'
+                className='shadow rounded max-w-full h-auto align-middle border-none'
               />
             </div>
           </div>
@@ -57,7 +57,11 @@ const Details = () => {
             <Carousel slidesPerPage={3} arrows>
               {images.map((image, index) => (
                 <Link to={'/' + image.id} key={index}>
-                  <img src={image.webformatURL} alt='' class='h-48' />
+                  <img
+                    src={`https://media.giphy.com/media/${image.id}/giphy.gif`}
+                    alt=''
+                    className='h-48'
+                  />
                 </Link>
               ))}
             </Carousel>

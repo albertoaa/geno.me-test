@@ -7,7 +7,7 @@ const Home = () => {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const apiURL = 'https://api.giphy.com/v1/gifs';
+  const apiURL = process.env.REACT_APP_API_URL;
   const apiKey = process.env.REACT_APP_GIPHY_APP_KEY;
 
   useEffect(() => {
