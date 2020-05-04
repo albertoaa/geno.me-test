@@ -15,10 +15,10 @@ const Home = () => {
     dispatch(allActions.imagesActions.fetchImages(0, ''));
   }, [dispatch]);
 
-  const loadMore = () => {
-    const offset = images.length;
-    dispatch(allActions.imagesActions.fetchImages(offset, ''));
-  };
+  // const loadMore = () => {
+  //   const offset = images.length;
+  //   dispatch(allActions.imagesActions.fetchImages(offset, ''));
+  // };
 
   const searchText = (text) => {
     dispatch(allActions.imagesActions.fetchImages(0, text));
