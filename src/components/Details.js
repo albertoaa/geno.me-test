@@ -57,11 +57,16 @@ const Details = () => {
             <Carousel slidesPerPage={3} arrows>
               {images.map((image, index) => (
                 <Link to={'/' + image.id} key={index}>
-                  <img
-                    src={`https://media.giphy.com/media/${image.id}/giphy.gif`}
-                    alt=''
-                    className='h-48'
-                  />
+                  <div className='max-w-sm rounded overflow-hidden shadow-lg relative'>
+                    <img
+                      src={`https://media.giphy.com/media/${image.id}/giphy.gif`}
+                      alt=''
+                      className='h-48'
+                    />
+                    <div className='absolute bottom-0 right-0 text-right px-2 font-bold text-sm bg-gray-800 text-white'>
+                      {image.title}
+                    </div>
+                  </div>
                 </Link>
               ))}
             </Carousel>
