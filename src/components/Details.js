@@ -32,40 +32,39 @@ const Details = () => {
 
   return (
     <div className='container mx-auto'>
-
       {!isLoadind && !data && (
         <h1 className='text-6xl text-center mx-auto mt-32'>No images found</h1>
       )}
       {isLoadind ? (
         <h1 className='text-6xl text-center mx-auto mt-32'>Loading...</h1>
       ) : (
-          <div className=''>
-            <div className='mt-5 mb-5'>
-              <Link to='/'>{'<  ' + data.user}</Link>
-            </div>
+        <div className=''>
+          <div className='mt-5 mb-5'>
+            <Link to='/'>{'<  ' + data.user}</Link>
+          </div>
 
-            <div class="flex flex-wrap justify-center">
-              <div>
-                <img src={data.webformatURL} alt="..." class="shadow rounded max-w-full h-auto align-middle border-none" />
-              </div>
-            </div>
-
-            <div className='m-10'>
-              <Carousel
-                slidesPerPage={3}
-                arrows
-              >
-                {images.map((image, index) => (
-                  <Link to={'/' + image.id}>
-                    <img src={image.webformatURL} alt='' class='h-48' />
-                  </Link>
-                ))}
-              </Carousel>
+          <div class='flex flex-wrap justify-center'>
+            <div>
+              <img
+                src={data.webformatURL}
+                alt='...'
+                class='shadow rounded max-w-full h-auto align-middle border-none'
+              />
             </div>
           </div>
-        )
-      }
-    </div >
+
+          <div className='m-10'>
+            <Carousel slidesPerPage={3} arrows>
+              {images.map((image, index) => (
+                <Link to={'/' + image.id} key={index}>
+                  <img src={image.webformatURL} alt='' class='h-48' />
+                </Link>
+              ))}
+            </Carousel>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

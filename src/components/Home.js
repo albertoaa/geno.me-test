@@ -7,25 +7,23 @@ const Home = () => {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [term, setTerm] = useState('');
-  const [offset, setOffset] = useState(0);
-  // const apiURL = `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_APP_KEY}&q=${term}&image_type=photo&pretty=true`;
-  const apiURL = `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_GIPHY_APP_KEY}`;
+  const apiURL = 'https://api.giphy.com/v1/gifs';
+  const apiKey = process.env.REACT_APP_GIPHY_APP_KEY;
 
   useEffect(() => {
-    fetch(`${apiURL}&offset=${offset}`)
+    fetch(`${apiURL}/trending?api_key=${apiKey}&offset=0`)
       .then((res) => res.json())
       .then((json) => {
         setImages(json.data);
         setIsLoading(false);
-        console.log(json);
+        // console.log(json);
       })
       .catch((err) => console.log(err));
-  }, [offset, apiURL]);
+  }, [apiKey, apiURL]);
 
   const loadMore = () => {
     setLoadingMore(true);
-    fetch(`${apiURL}&offset=${images.length}`)
+    fetch(`${apiURL}/trending?api_key=${apiKey}&offset=${images.length}`)
       .then((res) => res.json())
       .then((json) => {
         setImages([...images, ...json.data]);
@@ -35,9 +33,24 @@ const Home = () => {
       .catch((err) => console.log(err));
   };
 
+  const searchText = (text) => {
+    fetch(
+      text.length === 0
+        ? `${apiURL}/trending?api_key=${apiKey}`
+        : `${apiURL}/search?api_key=${apiKey}&q=${text}`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        setImages(json.data);
+        setIsLoading(false);
+        setLoadingMore(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className='container mx-auto'>
-      <ImageSearch searchText={(text) => setTerm(text)} />
+      <ImageSearch searchText={searchText} />
 
       {!isLoading && images.length === 0 && (
         <h1 className='text-6xl text-center mx-auto mt-32'>No images found</h1>
