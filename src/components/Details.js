@@ -31,7 +31,12 @@ const Details = () => {
   }, [id, apiKey, apiURL]);
 
   return (
-    <div className='container mx-auto'>
+    <div className='mx-auto'>
+      <div className='w-screen bg-gray-400 h-20 bg-purple-800 text-white text-center'>
+        <span className='inline-block mt-2 text-4xl'>
+          Pop<span className='text-green-400'>Gifs</span>!
+        </span>
+      </div>
       {!isLoadind && !data && (
         <h1 className='text-6xl text-center mx-auto mt-32'>No images found</h1>
       )}

@@ -49,7 +49,12 @@ const Home = () => {
   };
 
   return (
-    <div className='container mx-auto'>
+    <div className='mx-auto'>
+      <div className='w-screen bg-gray-400 h-20 bg-purple-800 text-white text-center'>
+        <span className='inline-block mt-2 text-4xl'>
+          Pop<span className='text-green-400'>Gifs</span>!
+        </span>
+      </div>
       <ImageSearch searchText={searchText} />
 
       {!isLoading && images.length === 0 && (
@@ -58,7 +63,7 @@ const Home = () => {
       {isLoading ? (
         <h1 className='text-6xl text-center mx-auto mt-32'>Loading...</h1>
       ) : (
-        <div className='grid grid-cols-3 gap-4'>
+        <div className='grid grid-cols-3 gap-4 mx-20 text-center'>
           {images.map((image, index) => (
             <Link to={'/' + image.id} key={index}>
               <ImageCard image={image} />
